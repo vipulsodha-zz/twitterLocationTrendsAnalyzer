@@ -1,0 +1,78 @@
+<html>
+<head>
+	
+	<title>Trends</title>
+	<script type="text/javascript" src= "http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+
+	<input type="text" name = "place" id = "place" placeholder="mumbai">
+	<input type="button" name="search" id = "search" value = "search" > {mumbai, india, pune, etc}
+
+<div style="width:100%; height:auto; border: 2px solid black;" id = "main-trend-box">
+	
+
+	
+	
+</div>
+
+
+<script type="text/javascript" src="https://s3-ap-northeast-1.amazonaws.com/cricdial/socket.io.js"></script>
+
+<script type="text/javascript">
+
+var socket  = io.connect();
+	$(document).ready(function(){
+console.log("ready");
+
+var submitButton = $("#search"),
+	placeValue = $("#place"),
+	mainTrendBox = $('#main-trend-box');
+
+submitButton.on('click', function(e){
+		console.log("clicked");
+		mainTrendBox.html('');
+		socket.emit('place',{place: placeValue.val()});
+
+});
+
+
+socket.on('got-trend', function(data){
+	// console.log(parseInt(data.data.sentiScore));
+	var sentiScore = parseInt(data.data.sentiScore);
+	console.log(sentiScore);
+	var id = data.data.trend.split(' ').join('_').replace(/[^a-zA-Z0-9]/g,'');
+	$('#'+id).prepend('<div style = " width:100%; height:auto; border:2px solid black;">'+data.data.text+' <br/><br/> SentiScore:  '+data.data.sentiScore+' <br/><br/>By: <a href = "http://twiter.com/'+data.data.screen_name+'">'+data.data.screen_name+'</a></div>');
+	if(sentiScore > 0) {
+		var no = $('#'+id+'-pos').text();
+		no++;
+		$('#'+id+'-pos').text(no);
+	} else if(sentiScore < 0){
+		var no = $('#'+id+'-neg').text();
+		no++
+		$('#'+id+'-neg').text(no)
+	}
+
+});
+
+socket.on('trend-list', function(data){
+var id;
+	// console.log(data);
+data.trends.forEach(function(trend){
+
+
+ id = trend.split(' ').join('_').replace(/[^a-zA-Z0-9]/g,'');
+mainTrendBox.append('<div style="width:19%; height:300px; border: 2px solid black; float:left;" id = "trend-box"><div style = " width:100%; height: 30px; border-bottom:2px solid black; float: left; text-align:center;">'+ trend +'</div><div style = " width:48%; height: 20px; border-bottom:2px solid black; float: left; text-align:center;"> Neg: <span id = "'+id+'-neg">0<span></div><div style = " width:48%; height: 20px; border-bottom:2px solid black; float: left; text-align:center;"> Pos: <span id = "'+id+'-pos">0<span></div><div style = " width:100%; height: 225px; border-bottom:2px solid black; float: left; text-align:center; overflow:auto;" id  = "'+id+'"> </div></div>');
+
+
+});
+
+});
+
+	});
+
+
+</script>
+
+</body>
+</html>

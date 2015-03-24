@@ -1,0 +1,25 @@
+{
+  "name": "TwitterTrends",
+  "version": "0.0.1",
+  "description": " Analyze trends at different locations and sentiments in realtime with socket.io",
+  "main": "trends.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vipulsodha/twitterTrendsLocation.git"
+  },
+  "keywords": [
+    "Twitter",
+    "Sentiments",
+    "Analyze",
+    "Trends"
+  ],
+  "author": "Vipul Sodha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vipulsodha/twitterTrendsLocation/issues"
+  },
+  "homepage": "https://github.com/vipulsodha/twitterTrendsLocation"
+}
