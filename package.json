@@ -2,7 +2,7 @@
   "name": "TwitterTrends",
   "version": "0.0.1",
   "description": " Analyze trends at different locations and sentiments in realtime with socket.io",
-  "main": "trends.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/vipulsodha/twitterTrendsLocation/issues"
   },
-  "homepage": "https://github.com/vipulsodha/twitterTrendsLocation"
+  "homepage": "https://github.com/vipulsodha/twitterTrendsLocation",
+  "dependencies": {
+    "express": "^4.12.3",
+    "socket.io": "^1.3.5",
+    "twit": "^1.1.20"
+  },
+  "devDependencies": {}
 }
